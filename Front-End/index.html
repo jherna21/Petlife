@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Pet Life</title>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+        <script src='../js/jquery.modal.js'></script>
+        <script src='../js/site.js'></script>
+    </head>
+    <body>
+        <section class="centerUp">
+            <h1>Pet Life</h1>
+            <h2>Bienvenido al centro de administración</h2>
+            <p>¿C&oacute;mo deseas iniciar sesi&oacute;n?</p><br><br>
+            <a id="a" class="modalLink" href="#loginUserModal">
+                Veterinario de Pet Life
+            </a>
+            <a id="a" class="modalLink" href="#loginAdminModal">
+                Administrador de Pet Life
+            </a>
+        </section>
+
+        <section>
+            <div class="huellas">
+                <IMG SRC="../img/huellas.png">
+            </div>
+        </section>
+
+        <div class="overlay"></div>
+
+        <div id="loginUserModal" class="modal">
+            <h1>Inicio de Sesi&oacute;n Veterinario</h1>
+            <a class="closeBtn btn" href="#"></a>
+
+            <form name="formLoginUsuario" action="../Back-End/login.php" method="post">
+                <input type="text" name="inpUsuario" placeholder="usuario">
+                <input type="password" name="inpClave" placeholder="contraseña">
+                <a class="modalLink" href="#olvidoPassUserModal">
+                    ¿Olvidó su Contraseña?
+                </a>
+                <input type="submit" class="submitBtn btn" value="Entrar">
+            </form>
+        </div>
+
+        <div id="olvidoPassUserModal" class="modal">
+            <h1>¿Olvidó su Contraseña?</h1>
+            <a class="closeBtn btn" href="#"></a><br>
+            <form name="formOlvidoUsuario" action="envia_clave.php" method="post">
+                <input type="text" placeholder="ingrese su correo electr&oacute;nico">
+                <input type="submit" class="submitBtn btn" value="Enviar">
+                <a class="modalLink" href="#loginUserModal">Atr&aacute;s</a>
+            </form>
+        </div>
+
+        <div id="loginAdminModal" class="modal">
+            <h1>Inicio de Sesi&oacute;n Administrador</h1>
+            <a class="closeBtn btn" href="#"></a>
+
+            <form name="formAdmin" action="../Back-End/login.php" method="post">
+                <input type="text" name="inpAdmin" placeholder="usuario">
+                <input type="password" name="inpClaveAdmin" placeholder="contraseña">
+                <a class="modalLink" href="#olvidoPassAdminModal">
+                    ¿Olvidó su Contraseña?
+                </a>
+                <input type="submit" class="submitBtn btn" value="Entrar">
+            </form>
+        </div>
+
+        <div id="olvidoPassAdminModal" class="modal">
+            <h1>¿Olvidó su Contraseña?</h1>
+            <a class="closeBtn btn" href="#"></a><br>
+            <form name="formOlvidoAdmin" action="envia_clave.php" method="post">
+                <input type="text" placeholder="ingrese su correo electr&oacute;nico">
+                <input type="submit" class="submitBtn btn" value="Enviar">
+                <a class="modalLink" href="#loginAdminModal">Atr&aacute;s</a>
+            </form>
+        </div>
+    </body>
+</html>
