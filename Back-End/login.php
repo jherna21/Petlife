@@ -1,43 +1,82 @@
 <?php
 
-include ("/../Control/conexion.php");
+    include ("../Control/conexion.php");
 
-/* El query valida si el usuario ingresado existe en la base de datos.
- * Se utiliza la funciï¿½n htmlentities para evitar inyecciones SQL.
- */
-$selectUsuario = mysql_query("SELECT usuario FROM veterinarios WHERE
-       usuario = '".htmlentities($_POST["inpUsuario"])."'");
-$numUsuario = mysql_num_rows($selectUsuario);
+    /* El query valida si el usuario ingresado existe en la tabla de veterinarios de la base de datos.
+     * Se utiliza la función htmlentities para evitar inyecciones SQL.
+     */
+    $selectUsuario = mysql_query("SELECT usuario FROM veterinarios WHERE
+        usuario = '".htmlentities(isset($_POST["inpUsuario"])?$_POST["inpUsuario"]:NULL)."'");
+    $numUsuario = mysql_num_rows($selectUsuario);
 
-/* Si existe el usuario, validamos tambiï¿½n la contraseï¿½a ingresada y el
- * estado del usuario.
- */
-if($numUsuario != 0) {
-	$sql = "SELECT usuario FROM veterinarios WHERE estado = 1
-			AND usuario = '".htmlentities($_POST["inpUsuario"])."'
-			AND clave = '".md5(htmlentities($_POST["inpClave"]))."'";
-	$claveUsuario = mysql_query($sql);
-	$numClaveUsuario = mysql_num_rows($claveUsuario);
+    /* El query valida si el usuario ingresado existe en la tabla de administradores de la base de datos.
+     * Se utiliza la función htmlentities para evitar inyecciones SQL.
+     */
+    $selectAdmin = mysql_query("SELECT usuario FROM administradores WHERE
+        usuario = '".htmlentities(isset($_POST["inpAdmin"])?$_POST["inpAdmin"]:NULL)."'");
+    $numAdmin = mysql_num_rows($selectAdmin);
 
-	/* Si el usuario y clave ingresado son correctos (y el usuario estï¿½
-	 * activo en la BD), creamos la sesiï¿½n del mismo.
-	 */
-	 if($numClaveUsuario != 0){
-	 	session_start();
-	 	
-	 	// Guardamos dos variables de sesiÃ³n que nos auxiliarï¿½ para saber
-		// si se estï¿½ o no "logueado" un usuario.
-		$_SESSION["autentica"] = "SIP";
-		$_SESSION["usuarioActual"] = mysql_result($claveUsuario,0,0);
-		//Direccionamos a nuestra pï¿½gina principal del sistema.
-		header ("Location: ../Front-End/principal_veterinario.php");
-	 } else {
-	 	echo"<script>alert('La contrase\u00f1a del usuario no es correcta');
-	 			window.location.href=\"../Front-End/index.html\"</script>";
-	 }
-} else {
-	echo"<script>alert('Usuario o Contrase\u00f1a err\u00f3neos');
-			window.location.href=\"../Front-End/index.html\"</script>";
-}
+    /* Si existe el usuario, validamos también la contraseña ingresada y el
+     * estado del usuario.
+     */
+    if ((isset($_POST["formLoginUsuario"])?$_POST["formLoginUsuario"]:NULL) == 1) {
+	    if($numUsuario != 0) {
+		    $sql = "SELECT usuario FROM veterinarios WHERE estado = 1
+				    AND usuario = '".htmlentities($_POST["inpUsuario"])."'
+				    AND clave = '".md5(htmlentities($_POST["inpClaveUsuario"]))."'";
+		    $claveUsuario = mysql_query($sql);
+		    $numClaveUsuario = mysql_num_rows($claveUsuario);
+
+		    /* Si el usuario y clave ingresado son correctos (y el usuario está
+		     * activo en la BD), creamos la sesión del mismo.
+		     */
+		     if($numClaveUsuario != 0){
+			    session_start();
+			
+			    // Guardamos dos variables de sesión que nos auxiliará para saber
+			    // si se está o no "logueado" un usuario.
+			    $_SESSION["autentica"] = "SIP";
+			    $_SESSION["usuarioActual"] = mysql_result($claveUsuario, 0, 0);
+			    //Direccionamos a la página principal del veterinario.
+			    header ("Location: ../Front-End/principal_veterinario.php");
+		     } else {
+			    echo"<script>alert('La contrase\u00f1a del usuario no es correcta');
+					    window.location.href=\"../index.html\"</script>";
+		     }
+	    } else {
+		    echo"<script>alert('Usuario o Contrase\u00f1a err\u00f3neos');
+				    window.location.href=\"../index.html\"</script>";
+	    }
+    } else {
+	    if ($_POST["formLoginAdmin"] == 2) {
+		    if($numAdmin != 0) {
+			    $sql = "SELECT usuario FROM administradores WHERE estado = 1
+					    AND usuario = '".htmlentities($_POST["inpAdmin"])."'
+					    AND clave = '".md5(htmlentities($_POST["inpClaveAdmin"]))."'";
+			    $claveAdmin = mysql_query($sql);
+			    $numClaveAdmin = mysql_num_rows($claveAdmin);
+
+			    /* Si el usuario y clave ingresado son correctos (y el usuario está
+			     * activo en la BD), creamos la sesión del mismo.
+			     */
+			     if($numClaveAdmin != 0){
+				    session_start();
+				
+				    // Guardamos dos variables de sesión que nos auxiliará para saber
+				    // si se está o no "logueado" un usuario.
+				    $_SESSION["autentica"] = "SIP";
+				    $_SESSION["usuarioActual"] = mysql_result($claveAdmin, 0, 0);
+				    //Direccionamos a la página principal del administrador.
+				    header ("Location: ../Front-End/principal_administrador.php");
+			     } else {
+				    echo"<script>alert('La contrase\u00f1a del usuario no es correcta');
+						    window.location.href=\"../index.html\"</script>";
+			     }
+		    } else {
+			    echo"<script>alert('Usuario o Contrase\u00f1a err\u00f3neos');
+					    window.location.href=\"../index.html\"</script>";
+		    }
+	    }
+    }
 
 ?>
