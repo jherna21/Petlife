@@ -13,31 +13,50 @@
 		<link rel="stylesheet" href="../css/normalize.css">
 		<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 		<script src='../js/jquery.modal.js'></script>
-		<script src='../js/site.js'></script>
+		<script src='../js/site.js'></script>   
+        <script src="../js/gestion_usuario.js" type="text/javascript"></script>     
     </head>
     <body>
         <div class="usuario">
             <strong><?php echo $_SESSION["usuarioActual"];?> </strong> &nbsp;
             <a href="principal_veterinario.php">inicio</a>&nbsp;
             <a href="../Back-End/logout.php">Salir </a>&nbsp;
+            
         </div>
         <br>
         <h2>Buscar usuario</h2><br>
 
         <section class="formRegistro">
-            <form action="" method="post">
+            <form  method="post">
                 <label class="label">Cédula: </label>
-                <input type="text" class="input" placeholder="cédula">
+                <input type="text" class="input" placeholder="cédula" id="pattern">
 
                 <div>
-                    <input type="submit" class="button" value="Buscar" style="margin-left: 110px;">
+                    <input id="btnBuscar" type="button" value="Buscar" class="button" style="margin-left: 110px;">
                     <!--<input type="button" class="button" onclick="location.href = 'principal_veterinario.php'" value="Regresar">-->
                 </div>
             </form>
-        </section>
+        </section>                
+        <section id="result"> 
+        </section>                 
+        <section id="info" class="formRegistro" hidden> 
+            <form method="post">                                
+                <label class="label">Correo: </label>
+                <input type="text" class="input" id="correo" placeholder="correo"><br>
 
-        <div>
-            <a href="datos_usuario.php">Pepito Pérez</a>
-        </div>
+                <label class="label">Teléfono: </label>
+                <input type="text" class="input" id="telefono" placeholder="teléfono"><br>
+
+                <label class="label">Dirección: </label>
+                <input type="text" class="input" id="direccion" placeholder="dirección"><br><br>
+
+                <div>
+                    <input id ="btnGuardar" type="button" class="button" value="Guardar" style="margin-left: 110px;">
+                    <!--<input type="button" class="button" onclick="location.href = 'principal_veterinario.php'" value="Regresar">-->
+                </div>
+            </form>
+        </section>      
+        <section id="respuesta">
+        </section>                    
     </body>
 </html>

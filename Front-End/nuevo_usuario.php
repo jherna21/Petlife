@@ -25,15 +25,15 @@
         <h2>Crear nuevo usuario</h2>
         
         <section class="formRegistro">
-            <form action="" method="post">
+            <form method="post" action="../Back-End/nuevo_usuario.php" name="nuevoUsuarioForm">
                 <label class="label">Nombre: </label>
                 <input type="text" class="input" name="nombre" placeholder="nombre"><br>
 
                 <label class="label">Apellido: </label>
-                <input type="text" class="input" name="apellido" placeholder="apellido"><br>
-
-                <label class="label">Cédula: </label>
-                <input type="text" class="input" name="cedula" placeholder="cédula"><br>
+                <input type="text" class="input" name="apellido" placeholder="apellido"><br>   
+                
+                 <label class="label">Cédula: </label>
+                <input type="text" class="input" name="cedula" placeholder="cedula"><br>                  
 
                 <label class="label">Correo: </label>
                 <input type="text" class="input" name="correo" placeholder="correo"><br>
