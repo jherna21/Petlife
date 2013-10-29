@@ -12,7 +12,7 @@
     /* El query valida si el usuario ingresado existe en la tabla de administradores de la base de datos.
      * Se utiliza la función htmlentities para evitar inyecciones SQL.
      */
-    $selectAdmin = mysql_query("SELECT usuario FROM administrador WHERE
+    $selectAdmin = mysql_query("SELECT nombre_admin FROM administrador WHERE
         usuario = '".htmlentities(isset($_POST["inpAdmin"])?$_POST["inpAdmin"]:NULL)."'");
     $numAdmin = mysql_num_rows($selectAdmin);
 
@@ -50,11 +50,11 @@
     } else {
 	    if ($_POST["formLoginAdmin"] == 2) {
 		    if($numAdmin != 0) {
-			    $sql = "SELECT usuario FROM administrador WHERE
+			    $sql = "SELECT nombre_admin FROM administrador WHERE
 					    usuario = '".htmlentities($_POST["inpAdmin"])."'
 					    AND clave_admin = '".(htmlentities($_POST["inpClaveAdmin"]))."'";
 			    $claveAdmin = mysql_query($sql);
-			    echo " ".($sql);
+			    //echo " ".($sql);
 			    $numClaveAdmin = mysql_num_rows($claveAdmin);
 
 			    /* Si el usuario y clave ingresado son correctos (y el usuario está
@@ -68,7 +68,7 @@
 				    $_SESSION["autentica"] = "SIP";
 				    $_SESSION["usuarioActual"] = mysql_result($claveAdmin, 0, 0);
 				    //Direccionamos a la página principal del administrador.
-				    header ("Location: ../Front-End/principal_administrador.php");
+				    header ("Location: ../Front-End/principal_admin.php");
 			     } else {
 				    echo"<script>alert('La contrase\u00f1a del usuario no es correcta');
 						    window.location.href=\"../index.html\"</script>";
