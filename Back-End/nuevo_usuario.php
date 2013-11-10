@@ -31,13 +31,13 @@
 
                 //Query para el Insert
                 $sqlInsert = "INSERT INTO usuario_movil (`id_usuario`, `date_fecha_afiliacion`, `date_duracion_licencia`,
-                 `telefono_usuario`, `direccion_usuario`, `nombre_usuario`, `apellido_usuario`, `id_veterinaria`, `cedula`) 
+                 `telefono_usuario`, `direccion_usuario`, `nombre_usuario`, `apellido_usuario`, `id_veterinaria`, `cedula`, `correo_usuario`) 
                  VALUES ( 'NULL','".$fechaActual."', '".$fechaExp."','".(htmlentities($_POST["telefono"]))."',
                           '".(htmlentities($_POST["direccion"]))."', '".(htmlentities($_POST["nombre"]))."',
-                          '".(htmlentities($_POST["apellido"]))."','".$id_veterinaria."', '".(htmlentities($_POST["cedula"]))."')";                
+                          '".(htmlentities($_POST["apellido"]))."','".$id_veterinaria."', '".(htmlentities($_POST["cedula"]))."', '".(htmlentities($_POST["correo"]))."')";                
 
                 //ejecutamos el query
-                $insertResult = mysql_query( $sqlInsert);                
+                $insertResult = mysql_query($sqlInsert);                
                 
                 //verificamos si fue exitoso el INSERT para continuar 
                 if($insertResult){
